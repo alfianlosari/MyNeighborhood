@@ -1,0 +1,120 @@
+html,
+body {
+  font-family: Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(17,17,17, 0.75);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+#sideContainer {
+    transition: 0.5s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 16px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenav h3 {
+    color: white;
+    padding-left: 16px;
+}
+
+.info h4 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.info {
+    width: 250px;
+}
+
+#filter-text {
+    width: 210px;
+    height: 38px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1em;
+}
+
+#filter-button {
+    height: 40px;
+    width: 60px;
+    border-radius: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    font-size: 1em;
+    border: none;
+}
+
+.sidenav ul {
+    padding: 16px;
+    list-style-type: none;
+}
+
+.sidenav li {
+    color: white;
+    cursor: pointer;
+}
+
+#filter {
+    padding-left: 16px;
+}
+
+#foursquare-logo {
+    width: 200px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #f0f0f0;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #fff;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+#hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 8px;
+    background-color: white;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #cacaca;
+    border-width: 1px;
+}
+
+#map {
+    height: 100%;
+}
+
+#pano {
+    width: 200px;
+    height: 200px;
+}
