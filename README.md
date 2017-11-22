@@ -16,3 +16,7 @@
 3. By Tapping menu on the top left side, a sidebar will be displayed containing the list of the interesting places
 4. User can filter the places by typing into the texfield
 5. To reset filter, user can click on the clear button to clear the filter textfield
+
+#### API Used
+1. Map, powered by Google Maps.
+2. Venue Detail, powered by Foursquare.
