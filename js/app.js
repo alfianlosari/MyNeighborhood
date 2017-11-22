@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 let map;
 let infoWindow;
 let locations;
@@ -47,10 +49,7 @@ initMap = () => {
 
         locations[i].marker = marker;
         markers.push(marker);
-        marker.addListener('click', () => {
-            toggleBounce(marker);
-            populateInfoWindow(marker);
-        });
+        marker.addListener('click', toggleInfoWindow);
         bounds.extend(marker.position);
     }
 
@@ -61,8 +60,13 @@ initMap = () => {
         }
     });
 
-    ko.applyBindings( new ViewModel() )
+    ko.applyBindings( new ViewModel() );
 };
+
+function toggleInfoWindow() {
+    toggleBounce(this);
+    populateInfoWindow(this);
+}
 
 function populateInfoWindow(marker) {
     if (infoWindow.marker != marker) {
@@ -90,21 +94,21 @@ function populateInfoWindow(marker) {
                         let venue = venues[0];
                         const website = venue.url;
                         const address = venue.location.formattedAddress.join(', ');
-                        let content = `<div class="info"><h4>Top Venue<br>${venue.name}</h4><br>${address}`
+                        let content = `<div class="info"><h4>Top Venue<br>${venue.name}</h4><br>${address}`;
                         if (website) {
-                            content += `<br><br><a href="${website}">Visit Website</a>`
+                            content += `<br><br><a href="${website}">Visit Website</a>`;
                         }
 
                         const contact = venue.contact;
                         const phone = contact.phone;
                         if (phone) {
-                            content += `<br>Tel: <a href="tel:${phone}">${contact.formattedPhone}</a>`
+                            content += `<br>Tel: <a href="tel:${phone}">${contact.formattedPhone}</a>`;
                         }
 
                         const twitter = contact.twitter;
                         if (twitter) {
                             content += `<br>Twitter: <a class="twitter-follow-button"
-                            href="https://twitter.com/${twitter}">@${twitter}</a>`
+                            href="https://twitter.com/${twitter}">@${twitter}</a>`;
                         }
                         content += `</div><div><img id="foursquare-logo" src="img/foursquare.png"></div>`;
                         infoWindow.setContent(content);
@@ -122,7 +126,7 @@ function populateInfoWindow(marker) {
 
 const ViewModel = function() {
     locationList = ko.observableArray([]);
-    locations.forEach((location) => locationList.push(location))
+    locations.forEach((location) => locationList.push(location));
     filterText = ko.observable('');
     filterLocations = ko.computed(() => {
         if (filterText() === '') {
@@ -148,7 +152,7 @@ const ViewModel = function() {
         hideListings();
         showListings(filterLocations());
     };
-}
+};
 
 function toggleBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -156,14 +160,18 @@ function toggleBounce(marker) {
 }
 
 function showListings(locations) {
-    let bounds = new google.maps.LatLngBounds;
+    let bounds = new google.maps.LatLngBounds();    
     for (let location of locations) {
-        let marker = markers.find((m) => location.marker === m);
-        if (marker) {
-            marker.setMap(map);
-            bounds.extend(marker.position);
-            map.fitBounds(bounds);
-        }
+        findAndSetLocationMarker(bounds, location);
+    }
+}
+
+function findAndSetLocationMarker(bounds, location) {
+    let marker = markers.find((m) => location.marker === m);
+    if (marker) {
+        marker.setMap(map);
+        bounds.extend(marker.position);
+        map.fitBounds(bounds);
     }
 }
 
