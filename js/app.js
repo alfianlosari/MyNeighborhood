@@ -12,24 +12,24 @@ initMap = () => {
         styles,
         mapTypeControl: false
     });
- 
+
     infoWindow = new google.maps.InfoWindow();
     locations = [
-        {title: 'Google Indonesia', location: { lat: -6.223566, lng: 106.798989 }},                                                                                
-        {title: 'Senayan City', location: { lat: -6.227211, lng: 106.797152 }},                                                                        
-        {title: 'Plaza Senayan', location: { lat: -6.225573, lng: 106.799161 }},                                                                
-        {title: 'fX Sudirman', location: { lat: -6.224580, lng: 106.804018 }},                                                        
-        {title: 'Sarinah', location: { lat: -6.187716, lng: 106.823840 }},                                                
-        {title: 'Plaza Indonesia', location: { lat: -6.192953, lng: 106.821831 }},                                        
-        {title: 'Plaza Semanggi', location: { lat: -6.219900, lng: 106.814494 }},                                
-        {title: 'Citywalk Sudirman', location: { lat: -6.208897, lng: 106.818388 }},                        
-        {title: 'Plaza Festival', location: { lat: -6.220952, lng: 106.832972 }},                
-        {title: 'Kuningan City Mall', location: { lat: -6.224783, lng: 106.829289 }},        
+        {title: 'Google Indonesia', location: { lat: -6.223566, lng: 106.798989 }},
+        {title: 'Senayan City', location: { lat: -6.227211, lng: 106.797152 }},
+        {title: 'Plaza Senayan', location: { lat: -6.225573, lng: 106.799161 }},
+        {title: 'fX Sudirman', location: { lat: -6.224580, lng: 106.804018 }},
+        {title: 'Sarinah', location: { lat: -6.187716, lng: 106.823840 }},
+        {title: 'Plaza Indonesia', location: { lat: -6.192953, lng: 106.821831 }},
+        {title: 'Plaza Semanggi', location: { lat: -6.219900, lng: 106.814494 }},
+        {title: 'Citywalk Sudirman', location: { lat: -6.208897, lng: 106.818388 }},
+        {title: 'Plaza Festival', location: { lat: -6.220952, lng: 106.832972 }},
+        {title: 'Kuningan City Mall', location: { lat: -6.224783, lng: 106.829289 }},
         {title: 'Shangri-La Hotel, Jakarta', location: { lat: -6.202820, lng: 106.818682 }},
         {title: 'Setiabudi One', location: { lat: -6.215241, lng: 106.830125 }},
         {title: 'Epiwalk', location: { lat: -6.217794, lng: 106.834700 }},
         {title: 'Grand Indonesia', location: { lat: -6.195169, lng: 106.819754 }},
-        {title: 'Mall Kota Kasablanka', location: { lat: -6.223576, lng: 106.842685 }}                
+        {title: 'Mall Kota Kasablanka', location: { lat: -6.223576, lng: 106.842685 }}
     ];
 
     locations.sort((a, b) => a.title > b.title);
@@ -105,7 +105,7 @@ function populateInfoWindow(marker) {
                         if (twitter) {
                             content += `<br>Twitter: <a class="twitter-follow-button"
                             href="https://twitter.com/${twitter}">@${twitter}</a>`
-                        }                        
+                        }
                         content += `</div><div><img id="foursquare-logo" src="img/foursquare.png"></div>`;
                         infoWindow.setContent(content);
                     } else {
@@ -152,7 +152,7 @@ const ViewModel = function() {
 
 function toggleBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(() => { marker.setAnimation(null); }, 750);    
+    setTimeout(() => { marker.setAnimation(null); }, 750);
 }
 
 function showListings(locations) {
@@ -164,7 +164,7 @@ function showListings(locations) {
             bounds.extend(marker.position);
             map.fitBounds(bounds);
         }
-    }   
+    }
 }
 
 function hideListings() {
@@ -176,7 +176,7 @@ function hideListings() {
 function openNav() {
     document.getElementById('mySidenav').style.width = "320px";
     document.getElementById('hamburger').style.visibility = "hidden";
-    document.getElementById('sideContainer').style.width = "320px";    
+    document.getElementById('sideContainer').style.width = "320px";
 }
 
 function closeNav() {
