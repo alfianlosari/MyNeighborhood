@@ -8,7 +8,7 @@
 2. Internet connection
 
 #### Installation
-1. Open index.html file inside this project
+1. Open index.html file inside this project in Chrome/Firefox/Safari Web Browser
 
 #### Usage
 1. The map comes with predefined pins of interesting place around the neighborhood
