@@ -3,14 +3,15 @@
     <head>
         <title>My Neighborhood</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css/app.css">        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
     <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times</a>
         <div id="sideContainer">
             <h3>Alfian's Neigborhood</h3>
-            <div id="filter"> 
+            <div id="filter">
                 <input id="filter-text" type="text" data-bind='value: filterText, valueUpdate: "afterkeydown", event: { keyup: filter }' placeholder="Type to Filter Locations">
                 <input id="filter-button" type="button" data-bind="click: clear" value="Clear">
             </div>
@@ -18,18 +19,16 @@
                 <li data-bind="text: title, click: locationClick"></li>
             </ul>
         </div>
-      
+
     </div>
     <div id="map"></div>
-    <div id="hamburger"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; menu</span></div>
-
-    <script src="js/app.js"></script>   
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type='text/javascript' src='js/knockout-3.4.2.js'></script>    
+    <div id="hamburger"><span onclick="openNav()">&#9776; menu</span></div>
+    <script src="js/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type='text/javascript' src='js/knockout-3.4.2.js'></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyBb96PbalCS-_najU8g5jrF4CM-reJi_qk&v=3&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyBb96PbalCS-_najU8g5jrF4CM-reJi_qk&v=3&callback=initMap"
+        onerror="mapError()">
     </script>
     </body>
-
 </html>
-

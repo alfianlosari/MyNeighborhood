@@ -8,6 +8,7 @@ let filterText;
 let markers = [];
 
 initMap = () => {
+    // Initialize google map object with predefined location and styles
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -6.2015955, lng: 106.8355373},
         zoom: 20,
@@ -16,6 +17,8 @@ initMap = () => {
     });
 
     infoWindow = new google.maps.InfoWindow();
+
+    // Define locations, generate marker using the locations, and display the marker on the map
     locations = [
         {title: 'Google Indonesia', location: { lat: -6.223566, lng: 106.798989 }},
         {title: 'Senayan City', location: { lat: -6.227211, lng: 106.797152 }},
@@ -52,8 +55,9 @@ initMap = () => {
         marker.addListener('click', toggleInfoWindow);
         bounds.extend(marker.position);
     }
-
     map.fitBounds(bounds);
+
+    // Set zoom level to the predefined zoom level if the bounds of the map is changed
     google.maps.event.addListener(map, 'bounds_changed', (event) => {
         if (map.getZoom() > 15) {
             map.setZoom(15);
@@ -68,6 +72,7 @@ function toggleInfoWindow() {
     populateInfoWindow(this);
 }
 
+// Set info window on the clicked marker
 function populateInfoWindow(marker) {
     if (infoWindow.marker != marker) {
         infoWindow.marker = marker;
@@ -79,6 +84,7 @@ function populateInfoWindow(marker) {
         const lat = marker.position.lat();
         const lng = marker.position.lng();
 
+        // Call Foursquare API using the marker location to get the top venue with all the details and display it inside info window
         $.ajax({
             type: 'GET',
             dataType: "jsonp",
@@ -92,20 +98,20 @@ function populateInfoWindow(marker) {
                     let venues = data.response.venues || [];
                     if (venues.length > 1) {
                         let venue = venues[0];
-                        const website = venue.url;
-                        const address = venue.location.formattedAddress.join(', ');
+                        let website = venue.url;
+                        let address = venue.location.formattedAddress.join(', ');
                         let content = `<div class="info"><h4>Top Venue<br>${venue.name}</h4><br>${address}`;
                         if (website) {
                             content += `<br><br><a href="${website}">Visit Website</a>`;
                         }
 
-                        const contact = venue.contact;
-                        const phone = contact.phone;
+                        let contact = venue.contact;
+                        let phone = contact.phone;
                         if (phone) {
                             content += `<br>Tel: <a href="tel:${phone}">${contact.formattedPhone}</a>`;
                         }
 
-                        const twitter = contact.twitter;
+                        let twitter = contact.twitter;
                         if (twitter) {
                             content += `<br>Twitter: <a class="twitter-follow-button"
                             href="https://twitter.com/${twitter}">@${twitter}</a>`;
@@ -124,41 +130,50 @@ function populateInfoWindow(marker) {
     }
 }
 
-const ViewModel = function() {
+// Define View Model with all the observables and actions
+function ViewModel() {
     locationList = ko.observableArray([]);
     locations.forEach((location) => locationList.push(location));
     filterText = ko.observable('');
+
+    // Computed Observable that will be generated based on the filter markers/location using search text
     filterLocations = ko.computed(() => {
         if (filterText() === '') {
             return locationList();
         } else {
-            return ko.utils.arrayFilter(locationList(), (location) => location.title.toLowerCase().includes(filterText().toLowerCase()));
+            let filterTextLowerCase = filterText().toLowerCase();
+            return ko.utils.arrayFilter(locationList(), (location) => location.title.toLowerCase().includes(filterTextLowerCase));
         }
     });
 
+    // Set the info window to the clicked location
     locationClick = (location) => {
         toggleBounce(location.marker);
         populateInfoWindow(location.marker);
         closeNav();
     };
 
+    // clear all filtered search text for locations
     clear = () => {
         filterText('');
         hideListings();
         showListings(filterLocations());
     };
 
+    // filter the locations based on the filter text
     filter = () => {
         hideListings();
         showListings(filterLocations());
     };
-};
+}
 
+// Set marker animation to bounce when clicked
 function toggleBounce(marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(() => { marker.setAnimation(null); }, 750);
 }
 
+// Show all the marker for tha locations parameter
 function showListings(locations) {
     let bounds = new google.maps.LatLngBounds();    
     for (let location of locations) {
@@ -166,6 +181,7 @@ function showListings(locations) {
     }
 }
 
+// Find marker and set its map
 function findAndSetLocationMarker(bounds, location) {
     let marker = markers.find((m) => location.marker === m);
     if (marker) {
@@ -175,6 +191,7 @@ function findAndSetLocationMarker(bounds, location) {
     }
 }
 
+// Hide all the markers from the map
 function hideListings() {
     for (let marker of markers) {
         marker.setMap(null);
@@ -193,6 +210,12 @@ function closeNav() {
     document.getElementById('sideContainer').style.visibility = "0";
 }
 
+// Generate alert box to the user if the google map api fails to load
+function mapError() {
+    alert('Google Map Fails To Load. We are sorry for this incovenience.');
+}
+
+// Predefined styles for Google Maps
 const styles =  [
     {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
     {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
